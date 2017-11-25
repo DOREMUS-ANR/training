@@ -68,3 +68,14 @@ Représentations à venir des oeuvres d'un compositeur donné (à la Philharmoni
         }
     }
     ORDER BY ?date
+    
+    
+Evolution of clavecin in timing (for each decade)
+
+    select ?year COUNT(?expression) where {
+    ?expression mus:U13_has_casting / mus:U23_has_casting_detail / mus:U2_foresees_use_of_medium_of_performance_of_type  <http://data.doremus.org/vocabulary/iaml/mop/khp> .
+    ?expCreation efrbroo:R17_created ?expression ;
+                 ecrm:P4_has_time-span / time:hasBeginning / time:inXSDDate ?time
+    BIND (SUBSTR(str(?time),1,3) as ?year)
+    } GROUP BY ?year
+    ORDER BY ?year
